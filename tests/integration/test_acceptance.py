@@ -3,8 +3,11 @@
 from __future__ import annotations
 
 import importlib.util
+import os
 import sys
 from pathlib import Path
+
+import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -20,6 +23,9 @@ def load_scenario():  # type: ignore[no-untyped-def]
     return module
 
 
+@pytest.mark.skipif(
+    os.name == "nt", reason="the recorded transcript has POSIX modes and path separators"
+)
 def test_transcript_matches_the_recorded_evidence(tmp_path: Path) -> None:
     fresh = load_scenario().run_scenario(tmp_path.resolve())
     recorded = (ROOT / "docs" / "evidence" / "acceptance-transcript.txt").read_text(

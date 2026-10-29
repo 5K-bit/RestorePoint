@@ -66,6 +66,8 @@ def write(path: Path, data: bytes) -> None:
 
 def stamp_all(root: Path) -> None:
     for path in [root, *root.rglob("*")]:
+        if os.name != "nt":  # modes are part of the manifest: do not depend on the umask
+            path.chmod(0o755 if path.is_dir() else 0o644)
         os.utime(path, ns=(FILE_TIME_NS, FILE_TIME_NS))
 
 
