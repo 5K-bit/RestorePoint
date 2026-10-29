@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib.util
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -23,6 +24,11 @@ def load_scenario():  # type: ignore[no-untyped-def]
     return module
 
 
+def _mask_compressed_size(text: str) -> str:
+    # The byte count of compressed chunks depends on the zlib build, not on RestorePoint.
+    return re.sub(r"(unused chunk\(s\)) \([\d.]+ \w+\)", r"\1 (<size>)", text)
+
+
 @pytest.mark.skipif(
     os.name == "nt", reason="the recorded transcript has POSIX modes and path separators"
 )
@@ -31,7 +37,7 @@ def test_transcript_matches_the_recorded_evidence(tmp_path: Path) -> None:
     recorded = (ROOT / "docs" / "evidence" / "acceptance-transcript.txt").read_text(
         encoding="utf-8"
     )
-    assert fresh == recorded
+    assert _mask_compressed_size(fresh) == _mask_compressed_size(recorded)
 
 
 def test_the_scenario_ends_where_it_claims(tmp_path: Path) -> None:

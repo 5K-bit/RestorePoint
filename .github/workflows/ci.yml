@@ -31,7 +31,11 @@ jobs:
       - name: Type check
         run: mypy
       - name: Tests (with coverage floor)
+        if: runner.os != 'Windows'
         run: python -m pytest --cov --cov-fail-under=90
+      - name: Tests (Windows: POSIX-only tests are skipped, so no coverage floor)
+        if: runner.os == 'Windows'
+        run: python -m pytest --cov
 
   acceptance:
     name: disaster-recovery scenario (installed CLI)
