@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test (${{ matrix.os }}, py${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+      - name: Lint
+        run: |
+          ruff check .
+          ruff format --check .
+      - name: Type check
+        run: mypy
+      - name: Tests (with coverage floor)
+        run: python -m pytest --cov --cov-fail-under=90
+
+  acceptance:
+    name: disaster-recovery scenario (installed CLI)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install without development tools
+        run: python -m pip install .
+      - name: Snapshot, lose, restore, verify
+        run: |
+          mkdir -p data/sub && echo one > data/a.txt && echo two > data/sub/b.txt
+          restorepoint --repo store.rpstore init
+          restorepoint --repo store.rpstore snapshot data --label ci
+          rm -rf data
+          restorepoint --repo store.rpstore restore latest recovered
+          test "$(cat recovered/sub/b.txt)" = "two"
+          restorepoint --repo store.rpstore verify --drill latest
+
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Audit dependencies
+        run: |
+          python -m pip install -e . pip-audit
+          pip-audit
