@@ -1,0 +1,78 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-9.2.0, pluggy-1.7.0 -- /tmp/rpv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/claude/restorepoint
+configfile: pyproject.toml
+testpaths: tests
+plugins: cov-7.1.0
+collecting ... collected 51 items
+
+tests/integration/test_acceptance.py::test_transcript_matches_the_recorded_evidence PASSED [  1%]
+tests/integration/test_acceptance.py::test_the_scenario_ends_where_it_claims PASSED [  3%]
+tests/integration/test_cli.py::test_full_session PASSED                  [  5%]
+tests/integration/test_cli.py::test_integrity_failure_exits_2 PASSED     [  7%]
+tests/integration/test_cli.py::test_errors_exit_1 PASSED                 [  9%]
+tests/integration/test_cli.py::test_strict_fails_when_something_is_skipped PASSED [ 11%]
+tests/integration/test_cli.py::test_lock_left_behind_is_explained PASSED [ 13%]
+tests/integration/test_cli.py::test_version_and_helpers PASSED           [ 15%]
+tests/unit/test_paths_repo.py::test_unsafe_paths_are_rejected[] PASSED   [ 17%]
+tests/unit/test_paths_repo.py::test_unsafe_paths_are_rejected[/abs] PASSED [ 19%]
+tests/unit/test_paths_repo.py::test_unsafe_paths_are_rejected[a/../b] PASSED [ 21%]
+tests/unit/test_paths_repo.py::test_unsafe_paths_are_rejected[..] PASSED [ 23%]
+tests/unit/test_paths_repo.py::test_unsafe_paths_are_rejected[a//b] PASSED [ 25%]
+tests/unit/test_paths_repo.py::test_unsafe_paths_are_rejected[a/./b] PASSED [ 27%]
+tests/unit/test_paths_repo.py::test_unsafe_paths_are_rejected[a/] PASSED [ 29%]
+tests/unit/test_paths_repo.py::test_unsafe_paths_are_rejected[a\\b] PASSED [ 31%]
+tests/unit/test_paths_repo.py::test_unsafe_paths_are_rejected[a\x00b] PASSED [ 33%]
+tests/unit/test_paths_repo.py::test_normal_paths_pass PASSED             [ 35%]
+tests/unit/test_paths_repo.py::test_windows_rules PASSED                 [ 37%]
+tests/unit/test_paths_repo.py::test_init_refuses_non_empty_directory PASSED [ 39%]
+tests/unit/test_paths_repo.py::test_open_requires_a_repository PASSED    [ 41%]
+tests/unit/test_paths_repo.py::test_chunk_roundtrip_and_dedup PASSED     [ 43%]
+tests/unit/test_paths_repo.py::test_corrupt_chunks_are_detected PASSED   [ 45%]
+tests/unit/test_paths_repo.py::test_decompression_bomb_is_refused PASSED [ 47%]
+tests/unit/test_paths_repo.py::test_bad_keys_are_refused PASSED          [ 49%]
+tests/unit/test_paths_repo.py::test_lock_excludes_a_second_writer PASSED [ 50%]
+tests/unit/test_paths_repo.py::test_altered_snapshot_is_detected PASSED  [ 52%]
+tests/unit/test_restore_checks.py::test_roundtrip_is_byte_identical PASSED [ 54%]
+tests/unit/test_restore_checks.py::test_restore_refuses_a_non_empty_target PASSED [ 56%]
+tests/unit/test_restore_checks.py::test_restore_only_selected_paths PASSED [ 58%]
+tests/unit/test_restore_checks.py::test_links_need_opt_in_and_must_stay_inside PASSED [ 60%]
+tests/unit/test_restore_checks.py::test_forged_traversal_manifest_cannot_write_outside PASSED [ 62%]
+tests/unit/test_restore_checks.py::test_damaged_chunk_aborts_restore_and_leaves_no_partial_file PASSED [ 64%]
+tests/unit/test_restore_checks.py::test_verify_clean_repo PASSED         [ 66%]
+tests/unit/test_restore_checks.py::test_verify_finds_each_kind_of_damage PASSED [ 68%]
+tests/unit/test_restore_checks.py::test_verify_counts_orphans PASSED     [ 70%]
+tests/unit/test_restore_checks.py::test_drill_passes_and_cleans_up PASSED [ 72%]
+tests/unit/test_restore_checks.py::test_drill_reports_damage PASSED      [ 74%]
+tests/unit/test_restore_checks.py::test_diff PASSED                      [ 76%]
+tests/unit/test_restore_checks.py::test_prune_dry_run_then_apply PASSED  [ 78%]
+tests/unit/test_restore_checks.py::test_prune_refuses_when_a_snapshot_is_damaged PASSED [ 80%]
+tests/unit/test_snapshot.py::test_snapshot_records_everything PASSED     [ 82%]
+tests/unit/test_snapshot.py::test_second_snapshot_reuses_unchanged_data PASSED [ 84%]
+tests/unit/test_snapshot.py::test_same_state_gives_same_snapshot_id PASSED [ 86%]
+tests/unit/test_snapshot.py::test_excludes PASSED                        [ 88%]
+tests/unit/test_snapshot.py::test_repo_inside_source_is_refused PASSED   [ 90%]
+tests/unit/test_snapshot.py::test_unreadable_files_are_skipped_and_reported PASSED [ 92%]
+tests/unit/test_snapshot.py::test_links_and_special_files PASSED         [ 94%]
+tests/unit/test_snapshot.py::test_file_changing_during_read_is_reported PASSED [ 96%]
+tests/unit/test_snapshot.py::test_refs PASSED                            [ 98%]
+tests/unit/test_snapshot.py::test_manifest_validation PASSED             [100%]
+
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.13.18-final-0 _______________
+
+Name                           Stmts   Miss Branch BrPart  Cover   Missing
+--------------------------------------------------------------------------
+src/restorepoint/__init__.py       1      0      0      0   100%
+src/restorepoint/__main__.py       3      3      0      0     0%   1-5
+src/restorepoint/checks.py       137      5     46      6    94%   93, 96, 97->90, 99, 101, 103
+src/restorepoint/cli.py          133      5     42      4    95%   111-112, 152, 153->156, 169, 207
+src/restorepoint/errors.py         4      0      0      0   100%
+src/restorepoint/paths.py         28      0     16      0   100%
+src/restorepoint/repo.py         129      4     30      4    95%   143, 145->144, 148->146, 160, 173-174
+src/restorepoint/restore.py      106      9     44      5    88%   69-72, 81, 106-107, 110->108, 129-130, 132->exit
+src/restorepoint/snapshot.py     233     18     78      7    92%   78, 85, 117, 143, 182, 239-241, 246-248, 251-253, 257, 260-262, 277->242
+--------------------------------------------------------------------------
+TOTAL                            774     44    256     26    93%
+============================== 51 passed in 1.86s ==============================

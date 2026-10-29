@@ -1,0 +1,47 @@
+# A small, synthetic accounts folder: 12 ledgers, config, two scanned invoices
+$ restorepoint init
+Created repository <work>/store. Keep it on a different disk from what it protects.
+[exit 0]
+$ restorepoint snapshot <work>/accounts --label monday
+snapshot 5658a61aa46d: 17 files, 5 folders, 4.3 MiB; 20 new chunks (4.3 MiB stored), 0 reused
+[exit 0]
+# Tuesday: one ledger edited, one file added, one removed
+$ restorepoint snapshot <work>/accounts --label tuesday
+snapshot 2b75fa449b8a: 17 files, 5 folders, 4.3 MiB; 2 new chunks (90 B stored), 18 reused
+[exit 0]
+$ restorepoint list
+5658a61aa46d  2026-10-29T21:00:00Z      17 files     4.3 MiB  monday
+2b75fa449b8a  2026-10-29T22:00:00Z      17 files     4.3 MiB  tuesday
+[exit 0]
+$ restorepoint diff 5658a61aa46d 2b75fa449b8a
++ notes-tuesday.txt
+- config/secrets.example
+~ ledger/2026-12.csv
+[exit 0]
+# Disaster: the whole folder is deleted
+$ restorepoint restore latest <work>/recovered
+restored 17 files (4.3 MiB), every file checked, to <work>/recovered
+[exit 0]
+# recovered tree identical to the lost one: yes
+$ restorepoint verify --drill latest --scratch <work>
+snapshots: 2  chunks checked: 22  unused chunks: 0
+restore drill 2b75fa449b8a: 17 files, 4.3 MiB restored and compared
+integrity: OK
+[exit 0]
+# Later: one stored chunk of an invoice is damaged on disk
+$ restorepoint verify
+snapshots: 2  chunks checked: 22  unused chunks: 0
+PROBLEM: chunk d1337349e613 is corrupt (not valid compressed data)
+integrity: FAILED
+[exit 2]
+$ restorepoint restore latest <work>/recovered-again
+restorepoint: integrity failure: chunk d1337349e613 is corrupt (not valid compressed data)
+[exit 2]
+$ restorepoint restore latest <work>/just-ledgers --only ledger
+restored 12 files (7.2 KiB), every file checked, to <work>/just-ledgers
+[exit 0]
+# the untouched ledgers were recovered intact: yes
+$ restorepoint prune --keep-last 1
+would remove 1 snapshot(s) and 2 unused chunk(s) (295 B)
+dry run: nothing was deleted. Add --apply to delete.
+[exit 0]

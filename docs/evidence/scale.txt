@@ -1,0 +1,8 @@
+5000 small files + one 256 MiB file; one machine, one run
+first snapshot: 9.6 s
+  5001 files, 5256 new chunks
+second snapshot (one file edited): 0.6 s
+  1 new chunk(s), 5255 reused
+restore: 1.2 s
+verify (deep): 0.5 s
+  ok=True, chunks checked 5257
