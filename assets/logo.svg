@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 240" role="img" aria-labelledby="t d">
+  <title id="t">RestorePoint</title>
+  <desc id="d">RestorePoint logo: a circular arrow returning to a checked point, next to the word RestorePoint.</desc>
+  <defs>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffb199"/>
+      <stop offset="0.5" stop-color="#ff7a59"/>
+      <stop offset="1" stop-color="#e5533a"/>
+    </linearGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2a1511"/>
+      <stop offset="1" stop-color="#0c1220"/>
+    </linearGradient>
+  </defs>
+  <rect width="880" height="240" rx="28" fill="url(#bg)"/>
+  <rect x="1.5" y="1.5" width="877" height="237" rx="26.5" fill="none" stroke="#ff7a59" stroke-opacity="0.35" stroke-width="3"/>
+  <g transform="translate(40 40)">
+    <rect width="160" height="160" rx="36" fill="#190d0a" stroke="#ff7a59" stroke-width="4"/>
+    <g transform="translate(22 22) scale(.58)" fill="none" stroke="#ffb199" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M40 118a100 100 0 1 1 28 76"/>
+      <path d="M40 70v52h52"/>
+      <circle cx="120" cy="120" r="14"/>
+      <path d="M114 120l5 6 10-12"/>
+    </g>
+  </g>
+  <text x="238" y="140" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace"
+        font-size="80" font-weight="700" letter-spacing="1" fill="url(#word)">RestorePoint</text>
+  <text x="242" y="188" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace"
+        font-size="26" fill="#c9a094">$ restore it before you need it<tspan fill="#ff7a59">_</tspan></text>
+</svg>
