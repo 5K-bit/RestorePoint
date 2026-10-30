@@ -103,3 +103,15 @@ def test_version_and_helpers(capsys: pytest.CaptureFixture[str]) -> None:
     assert f"restorepoint {__version__}" in capsys.readouterr().out
     assert human(0) == "0 B" and human(2048) == "2.0 KiB" and human(5 * 1024**3) == "5.0 GiB"
     assert build_parser().prog == "restorepoint"
+
+
+def test_unwritable_target_is_a_clean_error_not_a_traceback(
+    capsys: pytest.CaptureFixture[str], cli: list[str], tree: Path, tmp_path: Path
+) -> None:
+    run(capsys, *cli, "init")
+    run(capsys, *cli, "snapshot", str(tree))
+    blocker = tmp_path / "a-file"
+    blocker.write_text("not a folder")
+    code, _, err = run(capsys, *cli, "restore", "latest", str(blocker / "inside"))
+    assert code == 1 and err.startswith("restorepoint: ")
+    assert "Traceback" not in err

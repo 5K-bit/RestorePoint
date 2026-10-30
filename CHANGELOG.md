@@ -6,6 +6,10 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Fixed
+
+- An operating-system error during `restore` or `snapshot` (an unwritable target, a full disk) ended in a Python traceback. It is now one line on stderr and exit status 1.
+
 ## [0.1.0] - 2026-10-29
 
 First working version.

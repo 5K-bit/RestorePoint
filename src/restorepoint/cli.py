@@ -110,6 +110,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         return EXIT_ERROR
     except BrokenPipeError:
         return EXIT_OK
+    except OSError as exc:  # unwritable target, full disk, unreadable repository file
+        where = f" ({exc.filename})" if exc.filename else ""
+        print(f"restorepoint: {exc.strerror or exc}{where}", file=sys.stderr)
+        return EXIT_ERROR
 
 
 def _run(args: argparse.Namespace) -> int:
