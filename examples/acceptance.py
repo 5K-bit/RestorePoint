@@ -19,6 +19,7 @@ import hashlib
 import io
 import os
 import random
+import re
 import shutil
 import sys
 import tempfile
@@ -87,7 +88,10 @@ class Transcript:
         self.last_out = ""
 
     def scrub(self, text: str) -> str:
-        return text.replace(str(self.work), "<work>")
+        """Hide the work folder and sizes that depend on the zlib build (compressed bytes)."""
+        text = text.replace(str(self.work), "<work>")
+        text = re.sub(r"\(\d+(?:\.\d+)? [KMG]?i?B stored\)", "(<size> stored)", text)
+        return re.sub(r"(chunk\(s\)) \(\d+(?:\.\d+)? [KMG]?i?B\)", r"\1 (<size>)", text)
 
     def note(self, text: str) -> None:
         self.lines.append(text)

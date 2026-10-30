@@ -3,11 +3,11 @@ $ restorepoint init
 Created repository <work>/store. Keep it on a different disk from what it protects.
 [exit 0]
 $ restorepoint snapshot <work>/accounts --label monday
-snapshot 5658a61aa46d: 17 files, 5 folders, 4.3 MiB; 20 new chunks (4.3 MiB stored), 0 reused
+snapshot 5658a61aa46d: 17 files, 5 folders, 4.3 MiB; 20 new chunks (<size> stored), 0 reused
 [exit 0]
 # Tuesday: one ledger edited, one file added, one removed
 $ restorepoint snapshot <work>/accounts --label tuesday
-snapshot 2b75fa449b8a: 17 files, 5 folders, 4.3 MiB; 2 new chunks (90 B stored), 18 reused
+snapshot 2b75fa449b8a: 17 files, 5 folders, 4.3 MiB; 2 new chunks (<size> stored), 18 reused
 [exit 0]
 $ restorepoint list
 5658a61aa46d  2026-10-29T21:00:00Z      17 files     4.3 MiB  monday
@@ -42,6 +42,6 @@ restored 12 files (7.2 KiB), every file checked, to <work>/just-ledgers
 [exit 0]
 # the untouched ledgers were recovered intact: yes
 $ restorepoint prune --keep-last 1
-would remove 1 snapshot(s) and 2 unused chunk(s) (295 B)
+would remove 1 snapshot(s) and 2 unused chunk(s) (<size>)
 dry run: nothing was deleted. Add --apply to delete.
 [exit 0]

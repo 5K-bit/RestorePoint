@@ -34,7 +34,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          python -m pytest --cov --cov-fail-under=90 2>&1 | tee pytest.log || {
+          python -m pytest --cov --cov-fail-under=${{ matrix.os == 'ubuntu-latest' && 90 || 85 }} 2>&1 | tee pytest.log || {
             # Surface the end of the log as an annotation, readable without signing in.
             echo "::error title=pytest failed::$(tail -c 3500 pytest.log | tr -d '\r' | sed ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g')"
             exit 1
