@@ -33,7 +33,7 @@ jobs:
       - name: Tests (with coverage floor)
         if: runner.os != 'Windows'
         run: python -m pytest --cov --cov-fail-under=90
-      - name: Tests (Windows: POSIX-only tests are skipped, so no coverage floor)
+      - name: Tests (Windows, no coverage floor because POSIX-only tests are skipped)
         if: runner.os == 'Windows'
         run: python -m pytest --cov
 
