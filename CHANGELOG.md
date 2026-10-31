@@ -6,11 +6,7 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
-### Fixed
-
-- An operating-system error during `restore` or `snapshot` (an unwritable target, a full disk) ended in a Python traceback. It is now one line on stderr and exit status 1.
-
-## [0.1.0] - 2026-10-29
+## [0.1.0] - 2026-10-31
 
 First working version.
 
@@ -22,3 +18,7 @@ First working version.
 - `verify` (deep or `--shallow`) and `verify --drill`, which restores a snapshot to a scratch folder and compares the tree with the manifest.
 - `list`, `show`, `diff`, and `prune --keep-last N` (dry run unless `--apply`; refuses to run when a snapshot is damaged).
 - Exit codes: 0 ok, 1 error, 2 integrity failure.
+
+### Fixed
+
+- An operating-system error during `restore` or `snapshot` (an unwritable target, a full disk) ended in a Python traceback. It is now one line on stderr and exit status 1.

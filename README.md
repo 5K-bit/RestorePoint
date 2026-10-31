@@ -150,7 +150,7 @@ RestorePoint does not claim more than it has shown:
 ## Roadmap
 
 - [x] Deduplicated snapshots, verified restores, restore drill, diff, safe prune
-- [ ] Run on GitHub CI (Linux and Windows) and confirm the matrix is green
+- [x] Run on GitHub CI (Linux and Windows): the matrix is green on `main` (checked 2026-10-31)
 - [ ] Encrypt the repository with a key you hold
 - [ ] Skip re-reading files whose size and mtime are unchanged (opt-in)
 - [ ] Content-defined chunking
