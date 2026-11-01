@@ -22,7 +22,7 @@ classifiers = [
 dependencies = []
 
 [project.optional-dependencies]
-dev = ["pytest>=9.1.1", "pytest-cov>=5", "ruff>=0.17.3", "mypy>=1.10"]
+dev = ["pytest>=9.1.1", "pytest-cov>=5", "ruff>=0.17.3", "mypy>=2.4.1"]
 
 [project.scripts]
 restorepoint = "restorepoint.cli:main"
